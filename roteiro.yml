@@ -1,0 +1,46 @@
+criar conta:
+  - https://hub.docker.com/explore
+  - https://app.localstack.cloud
+
+instalar:
+  - intellij community
+  - docker desktop
+  - dbeaver community
+
+setup:
+  docker desktop:
+    - abrir programa na inicialização (windows)
+  dbeaver:
+    - download driver postgres
+  intellij:
+    - docker plugin
+
+docker:
+  comandos:
+    # image
+    - docker image ls
+    - docker rmi -f $(docker image ls -q)
+    - docker build -t api-produto .
+    # container
+    - docker ps -a
+    - docker rm -f $(docker ps -aq)
+    - docker start postgres
+    - docker stop postgres
+    # network
+    - docker network ls
+    - docker network rm $(docker network ls -q)
+  containers:
+    # https://hub.docker.com/_/postgres
+    - docker run -d -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=postgres postgres
+    # https://hub.docker.com/r/localstack/localstack
+    - docker run -d -p 4566:4566 -p 4510-4559:4510-4559 --name=localstack localstack/localstack
+    # https://hub.docker.com/_/rabbitmq
+    - docker run -d -p 5672:5672 --name=rabbitmq rabbitmq
+    # https://hub.docker.com/_/redis
+    - docker run -d -p 6379:6379 --name=redis redis
+    # zipkin
+    - docker run -d
+    # grafana
+    - docker run -d
+
+aplicação:

@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - '4566:4566'
+      - '4510-4559:4510-4559'
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - '5672:5672'
+
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
+
+  # zipkin
+
+#  api-produto:
+#    image: api-produto
+#    ports:
+#      - '8080:8080'
+#    depends_on:
+#      - postgres
+#      - localstack
+#      - rabbitmq
+#      - redis
