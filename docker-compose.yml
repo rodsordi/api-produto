@@ -24,12 +24,12 @@ services:
 
   # zipkin
 
-#  api-produto:
-#    image: api-produto
-#    ports:
-#      - '8080:8080'
-#    depends_on:
-#      - postgres
-#      - localstack
-#      - rabbitmq
-#      - redis
+  api-produto:
+    image: api-produto
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+      - localstack
+      - rabbitmq
+      - redis

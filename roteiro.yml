@@ -20,7 +20,6 @@ docker:
     # image
     - docker image ls
     - docker rmi -f $(docker image ls -q)
-    - docker build -t api-produto .
     # container
     - docker ps -a
     - docker rm -f $(docker ps -aq)
@@ -44,3 +43,32 @@ docker:
     - docker run -d
 
 aplicação:
+  - application/src/main/java/Application.java
+  - spring.profiles.active=local,infra_local
+
+cURLs:
+  criar produto: |
+    curl --location 'http://localhost:8080/api/v1/produtos' \
+    --header 'Content-Type: application/json' \
+      --data '{
+    "nome": "Produto 1",
+    "categoria": "Categoria 1",
+    "status": "AVAILABLE",
+    "descricao": "Descrição do produto 1",
+    "valor": 1.99,
+    "fotos": [
+      {
+        "fileName": "produto.png",
+        "base64": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEnSURBVDiNldK/K0ZhFAfwj9ePDYPsb90yGJiY9I6krDIYTO/CH8CipBSyE7tClMUgq0FmiyIkZSWSheGey3V7L/nW6Xnu9znf7z3POQ+/oxpRiqYSPsFc7D9iXcHVXwYJZlFBO26who7gS40SbOIai2gJfgA7IeqOvK3ITTJxDU8YDuEUjmItGq2G0Uhoas0YxAWGMIZtbKAPS2FyjF104QRtOMB7E8bjL3t+Nm8Zt5iMau7xhtboS69ciRmuUC8YwWuYzWMhL6hojMzoNCKbwCFG84nFCop4ye3rmJGO96HsCmV4ljZtv3hQwSMm5ObaAHeYzn0noXnMiCrWpSPsySWO+55Sw7ziU65KG9Yp7XZ/8OcF/vKXar9K3MRZxI+n+x8kfwk/AT/iPUZGpHfDAAAAAElFTkSuQmCC"
+      }
+    ],
+    "tags": [
+      "tag 1"
+    ]
+    }'
+
+Dockerfile:
+  - mvn clean install -DskipTests
+  - docker build -t api-produto .
+  - uncomment api in docker-compose.yml
+  - docker compose up

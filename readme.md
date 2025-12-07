@@ -11,6 +11,12 @@ API Responsável por gerenciar produtos.
 - [IntelliJ Community](https://www.jetbrains.com/idea/download/)
 - [Docker](https://www.docker.com/get-started/)
 
+## 🌳 Variáveis de ambiente
+
+| Nome                   | Valor             |
+|------------------------|-------------------|
+| spring.profiles.active | local,infra_local |
+
 ## 📦 Construindo
 
 ``` sh
@@ -30,7 +36,7 @@ docker compose up
 ```
 
 ``` sh
-java -jar application/target/api-produto.application-0.0.1-SNAPSHOT.jar
+java -jar -Dspring.profiles.active=local,infra_local application/target/api-produto.application-0.0.1-SNAPSHOT.jar
 ```
 
 ## 📌 Versão
