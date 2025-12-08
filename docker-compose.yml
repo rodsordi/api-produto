@@ -13,9 +13,13 @@ services:
       - '4510-4559:4510-4559'
 
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
     ports:
       - '5672:5672'
+      - '9090:15672'
 
   redis:
     image: redis
