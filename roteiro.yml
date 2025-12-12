@@ -1,2 +1,186 @@
 Treinamento:
-  Título:
+  Título: Docker para back-ends
+
+  Pré-requisitos:
+    - Conhecimento básico de Spring.
+
+  Vídeo 0:
+    Título: Boas-vindas
+    Roteiro:
+      - Sou Rodrigo de Sordi, desenvolvedor back-end Java e instrutor na Alura.
+      - Tenho cabelo e cavanhaque loiros, tenho pele branca, uso óculos e estou vestindo uma camisa de cor 'xpto'.
+      - Tenho mais de 12 anos atuando como desenvolvedor de sistemas, principalmente no segmente financeiro.
+
+      - O curso é direcionado para quem está iniciando na carreira de back-end.
+      - Vamos ver o que são containers, como utilizar o docker na prática, e como aplicar no dia a dia.
+
+  Aula 1:
+    Título: Introdução ao Docker
+    Objetivos:
+      - Apresentar o conceito de containers
+      - Executar comandos básicos do docker
+    Pré-requisitos:
+      - Instalar o docker desktop
+      - Instalar o dbeaver community
+
+    Vídeo 1.1:
+      Título: O que são containers?
+      Competências:
+        - Compreender o conceito de containers e suas vantagens no desenvolvimento de software.
+      Roteiro:
+        - https://azure.microsoft.com/pt-br/resources/cloud-computing-dictionary/what-is-a-container
+        - Explicar container vs virtual machines
+        - Vantagens dos containers:
+          - Leveza
+          - Portabilidade
+          - Isolamento
+          - Consistência entre ambientes
+          - Escalabilidade
+        - Apresentar conteúdo da alura mais específico sobre docker (https://cursos.alura.com.br/course/devops-construindo-gerindo-containers-docker)
+
+    Vídeos 1.2:
+      Título: Comandos básicos do Docker
+      Competências:
+          - Executar comandos básicos do Docker para gerenciar imagens, containers.
+      Roteiro:
+        - Vamos conhecer o mínimo para começar a utilizar o docker.
+        # Hello World
+        - docker run hello-world
+        # Container
+        - docker ps -a
+        - docker rm -f $(docker ps -aq)
+        # image
+        - docker image ls
+        - docker rmi -f $(docker image ls -q)
+        # Repositório de imagens
+        - explicar ciclo de vida do pull da imagem
+
+    Vídeo 1.3:
+      Título: Trabalhando com o Postgres no Docker
+      Competências:
+        - Aprender à buscar imagens no Docker Hub
+        - Entender portas, variáveis de ambiente e volumes no Docker
+      Roteiro:
+        # Container Postgres
+        - https://hub.docker.com/_/postgres
+        - docker run -d -name postgres postgres
+        - docker ps -a
+        # Dbeaver
+        - abrir, configurar conexão e navegar no banco de dados
+        - mostrar erro de conexão
+
+      Vídeo 1.4:
+        Título: Configurando portas no docker
+        Competências:
+          - Entender como funcionam as portas no docker
+        Roteiro:
+          - https://hub.docker.com/_/postgres
+          - docker rm -f postgres
+          - docker run -d -name postgres -p 5432:5432 postgres
+          - mostrar erro de senha
+
+      Vídeo 1.5:
+        Título: Configurando variáveis de ambiente no docker
+        Competências:
+          - Entender variáveis de ambiente no docker
+        Roteiro:
+          - https://hub.docker.com/_/postgres
+          - docker rm -f postgres
+          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
+          # Criar registros
+          - CREATE TABLE newtable (id bigint GENERATED ALWAYS AS IDENTITY NOT NULL, "name" varchar NOT NULL, CONSTRAINT newtable_pk PRIMARY KEY (id));
+          - INSERT INTO newtable(name) VALUES('teste');
+          - select * from newtable;
+          # Validar que dados persistem após reiniciar o container
+          - docker stop postgres
+          - docker start postgres
+          - select * from newtable;
+          # Validar que volume sempre é apagado quando container é removido
+          - docker rm -f postgres
+          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
+          - select * from newtable;
+
+      Vídeo 1.6:
+        Título: Configurando volumes no docker
+        Competências:
+          - Entender volumes no docker
+        Roteiro:
+          - https://hub.docker.com/_/postgres
+          - docker rm -f postgres
+          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -v ~/docker/postgres/data:/var/lib/postgresql/data postgres
+          # Testar volume
+          - docker rm -f postgres
+          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -v ~/docker/postgres/data:/var/lib/postgresql/data postgres
+          - validar dados na base
+
+  Aula 2:
+    Título: Ambiente de desenvolvimento
+    Objetivos:
+      - Configurar o ambiente de desenvolvimento com Spring
+      - Entender as integrações do Spring com serviços externos
+    Pré-requisitos:
+      - Instalar o intellij community
+      - Clonar o projeto api-produto (https://github.com/rodsordi/api-produto)
+
+    Vídeo 2.1:
+      Título: Apresentando o projeto api-produto
+      Competências:
+        - Entender a estrutura do projeto api-produto e suas integrações com serviços externos.
+      Roteiro:
+        - Apresentar
+
+    Vídeo 2.2:
+      Título: Configurando o ambiente de desenvolvimento
+      Competências:
+        - Configurar o ambiente de desenvolvimento com Spring para utilizar serviços externos.
+      Roteiro:
+        - Importar o projeto api-produto no intellij
+        - mvn clean install
+        - Executar application/src/main/java/Application.java
+        - Editar parâmetro spring.profiles.active=local,infra_local
+        - Analisar log de falha de conexão com banco de dados
+
+    Vídeo 2.3:
+      Título:
+      Competências:
+      Roteiro:
+        -
+
+  Aula 3:
+    Título: Docker Compose para múltiplos containers
+    Objetivos:
+      - Apresentar o docker compose (portas, volumes, networks)
+      - Configurar e executar múltiplos containers utilizando Docker Compose
+
+    Vídeo 3.1:
+      Título: O que é o Docker Compose?
+      Competências:
+        - Compreender o conceito do Docker Compose e suas vantagens na orquestração de múltiplos containers.
+      Roteiro:
+        - https://docs.docker.com/compose/
+        - Explicar o que é o docker compose
+        - Vantagens do docker compose:
+          - Orquestração simplificada
+          - Configuração declarativa
+          - Isolamento de ambientes
+          - Escalabilidade facilitada
+
+    Vídeo 3.2:
+      Título: Criando um ambiente com Docker Compose
+      Competências:
+        - Configurar e executar múltiplos containers utilizando Docker Compose.
+      Roteiro:
+        - Apresentar docker-compose.yml da api-produto
+        - Explicar cada serviço (postgres, localstack, rabbitmq, redis)
+        - Executar docker compose up -d
+        - Validar containers rodando com docker ps
+        - Conectar no banco com dbeaver
+
+    Vídeo 3.3:
+      Título: Aplicando Docker Compose no dia a dia
+      Competências:
+        - Integrar Docker Compose em projetos de desenvolvimento para facilitar o gerenciamento de ambientes.
+      Roteiro:
+        - Visitar docker hub para buscar imagens
+        - Visitar documentação oficial do docker compose
+        - Dicas para aplicar no dia a dia em projetos pessoais e profissionais

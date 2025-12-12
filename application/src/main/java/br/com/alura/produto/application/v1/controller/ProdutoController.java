@@ -4,6 +4,7 @@ import br.com.alura.produto.application.v1.dto.ProdutoDto;
 import br.com.alura.produto.application.v1.mapper.ProdutoDtoMapper;
 import br.com.alura.produto.domain.usecase.CadastroProdutoUseCase;
 import br.com.alura.produto.domain.usecase.ConsultaProdutoUseCase;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/v1/produtos")
+@Observed
 public class ProdutoController {
 
     public static final ProdutoDtoMapper mapper = getMapper(ProdutoDtoMapper.class);

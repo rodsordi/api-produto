@@ -3,6 +3,7 @@ package br.com.alura.produto.infra.repository;
 import br.com.alura.produto.domain.entity.Produto;
 import br.com.alura.produto.domain.repository.QueueRepository;
 import br.com.alura.produto.infra.mapper.ProdutoMsgMapper;
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import static org.mapstruct.factory.Mappers.getMapper;
 @RequiredArgsConstructor
 @Repository
 @Primary
+@Observed
 public class QueueRepositoryImpl implements QueueRepository {
 
     private final ProdutoMsgMapper mapper = getMapper(ProdutoMsgMapper.class);

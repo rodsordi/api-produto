@@ -26,7 +26,10 @@ services:
     ports:
       - '6379:6379'
 
-  # zipkin
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+     - '9411:9411'
 
 #  api-produto:
 #    image: api-produto

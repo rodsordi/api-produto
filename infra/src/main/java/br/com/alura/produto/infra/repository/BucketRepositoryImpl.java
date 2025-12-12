@@ -3,6 +3,7 @@ package br.com.alura.produto.infra.repository;
 import br.com.alura.produto.domain.entity.Foto;
 import br.com.alura.produto.domain.repository.BucketRepository;
 import io.awspring.cloud.s3.S3Template;
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
@@ -18,6 +19,7 @@ import static java.util.Base64.getDecoder;
 @Primary
 @Repository
 @RequiredArgsConstructor
+@Observed
 public class BucketRepositoryImpl implements BucketRepository {
 
     private final S3Template s3Template;
