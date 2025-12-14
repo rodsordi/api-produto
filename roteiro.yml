@@ -6,27 +6,52 @@ Treinamento:
 
   Vídeo 0:
     Título: Boas-vindas
+    Objetivos:
+      - O curso é direcionado para quem está iniciando na carreira de back-end.
+      - Vamos: Ver o que são containers, como utilizar o docker na prática, e como aplicar no dia a dia.
     Roteiro:
       - Sou Rodrigo de Sordi, desenvolvedor back-end Java e instrutor na Alura.
       - Tenho cabelo e cavanhaque loiros, tenho pele branca, uso óculos e estou vestindo uma camisa de cor 'xpto'.
       - Tenho mais de 12 anos atuando como desenvolvedor de sistemas, principalmente no segmente financeiro.
 
-      - O curso é direcionado para quem está iniciando na carreira de back-end.
-      - Vamos ver o que são containers, como utilizar o docker na prática, e como aplicar no dia a dia.
 
   Aula 1:
+    Título: Montando o ambiente de desenvolvimento
+    Pré-requisitos:
+      - Instalar o intellij community
+      - Clonar o projeto api-produto (https://github.com/rodsordi/api-produto)
+
+    Vídeo 1.1:
+      Título: Apresentando o projeto api-produto
+      Competências:
+        - Vamos: Entender a estrutura do projeto api-produto e suas integrações com serviços externos.
+      Roteiro:
+        - Apresentar ./api-produto.png
+        - Explicar processo de montagem do ambiente de desenvolvimento
+        - Explicar diferença entre ambientes local, dev, hml, test, prd
+
+    Vídeo 1.2:
+      Título: Montando o ambiente de desenvolvimento
+      Competências:
+        - Vamos: Configurar o ambiente de desenvolvimento
+      Roteiro:
+        - Importar o projeto api-produto no intellij
+        - mvn clean install
+        - Executar application/src/main/java/Application.java
+        - Editar parâmetro spring.profiles.active=local,infra_local
+        - Analisar log de falha de conexão com banco de dados
+        - Explicar que vamos resolver esse problema de isolamento do ambiente local com o docker
+
+  Aula 2:
     Título: Introdução ao Docker
-    Objetivos:
-      - Apresentar o conceito de containers
-      - Executar comandos básicos do docker
     Pré-requisitos:
       - Instalar o docker desktop
       - Instalar o dbeaver community
 
-    Vídeo 1.1:
+    Vídeo 2.1:
       Título: O que são containers?
       Competências:
-        - Compreender o conceito de containers e suas vantagens no desenvolvimento de software.
+        - Vamos: compreender o conceito de containers e suas vantagens no desenvolvimento de software.
       Roteiro:
         - https://azure.microsoft.com/pt-br/resources/cloud-computing-dictionary/what-is-a-container
         - Explicar container vs virtual machines
@@ -38,124 +63,79 @@ Treinamento:
           - Escalabilidade
         - Apresentar conteúdo da alura mais específico sobre docker (https://cursos.alura.com.br/course/devops-construindo-gerindo-containers-docker)
 
-    Vídeos 1.2:
-      Título: Comandos básicos do Docker
+    Vídeos 2.2:
+      Título: Ações básicas do Docker
       Competências:
-          - Executar comandos básicos do Docker para gerenciar imagens, containers.
+        - Vamos: conhecer o mínimo para começar a utilizar o docker.
+        - Vamos: executar comandos básicos do Docker para gerenciar imagens, containers.
       Roteiro:
-        - Vamos conhecer o mínimo para começar a utilizar o docker.
-        # Hello World
-        - docker run hello-world
-        # Container
-        - docker ps -a
-        - docker rm -f $(docker ps -aq)
-        # image
-        - docker image ls
-        - docker rmi -f $(docker image ls -q)
-        # Repositório de imagens
-        - explicar ciclo de vida do pull da imagem
+        - Menu -> File -> Setting -> Plugins -> Marketplace -> Docker -> Install
+        - Menu -> View -> Tool Windows -> Services (alt+8)
+        - Docker -> Images -> aba:Images Console Image to pull:"hello-world" -> Pull
+        - Explicar ciclo de vida do pull da imagem
+        - Docker -> Images -> hello-world:latest -> + Create Container -> Container name:"hello-world" -> Run
+        - Docker -> Containers -> hello-world -> Delete... -> Yes
 
-    Vídeo 1.3:
+    Vídeo 2.3:
       Título: Trabalhando com o Postgres no Docker
       Competências:
-        - Aprender à buscar imagens no Docker Hub
-        - Entender portas, variáveis de ambiente e volumes no Docker
+        - Vamos: Aprender à buscar imagens no Docker Hub
+        - Vamos: Entender portas, variáveis de ambiente e volumes no Docker
       Roteiro:
         # Container Postgres
         - https://hub.docker.com/_/postgres
-        - docker run -d -name postgres postgres
-        - docker ps -a
+        - Docker -> Images -> aba:Images Console -> Image to pull:"postgres" -> Pull
+        - Docker -> Images -> postgres:latest -> + Create Container -> Container name:"postgres" -> Run
+        - Analisar log de erro do password
+        - Docker -> Containers -> postgres -> Clique direito:Edit -> Modify options -> Environment variables -> Environment variables:Browse... (Shift+Enter) -> + -> Name:"POSTGRES_PASSWORD" -> Value:"postgres" -> OK
+        - Docker -> Containers -> postgres -> Clique direito:Recreate
         # Dbeaver
         - abrir, configurar conexão e navegar no banco de dados
         - mostrar erro de conexão
 
-      Vídeo 1.4:
-        Título: Configurando portas no docker
-        Competências:
-          - Entender como funcionam as portas no docker
-        Roteiro:
-          - https://hub.docker.com/_/postgres
-          - docker rm -f postgres
-          - docker run -d -name postgres -p 5432:5432 postgres
-          - mostrar erro de senha
-
-      Vídeo 1.5:
-        Título: Configurando variáveis de ambiente no docker
-        Competências:
-          - Entender variáveis de ambiente no docker
-        Roteiro:
-          - https://hub.docker.com/_/postgres
-          - docker rm -f postgres
-          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
-          # Criar registros
-          - CREATE TABLE newtable (id bigint GENERATED ALWAYS AS IDENTITY NOT NULL, "name" varchar NOT NULL, CONSTRAINT newtable_pk PRIMARY KEY (id));
-          - INSERT INTO newtable(name) VALUES('teste');
-          - select * from newtable;
-          # Validar que dados persistem após reiniciar o container
-          - docker stop postgres
-          - docker start postgres
-          - select * from newtable;
-          # Validar que volume sempre é apagado quando container é removido
-          - docker rm -f postgres
-          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
-          - select * from newtable;
-
-      Vídeo 1.6:
-        Título: Configurando volumes no docker
-        Competências:
-          - Entender volumes no docker
-        Roteiro:
-          - https://hub.docker.com/_/postgres
-          - docker rm -f postgres
-          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -v ~/docker/postgres/data:/var/lib/postgresql/data postgres
-          # Testar volume
-          - docker rm -f postgres
-          - docker run -d -name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -v ~/docker/postgres/data:/var/lib/postgresql/data postgres
-          - validar dados na base
-
-  Aula 2:
-    Título: Ambiente de desenvolvimento
-    Objetivos:
-      - Configurar o ambiente de desenvolvimento com Spring
-      - Entender as integrações do Spring com serviços externos
-    Pré-requisitos:
-      - Instalar o intellij community
-      - Clonar o projeto api-produto (https://github.com/rodsordi/api-produto)
-
-    Vídeo 2.1:
-      Título: Apresentando o projeto api-produto
+    Vídeo 2.4:
+      Título: Configurando portas no docker
       Competências:
-        - Entender a estrutura do projeto api-produto e suas integrações com serviços externos.
+        - Vamos: Entender como funcionam as portas no docker
       Roteiro:
-        - Apresentar
+        - https://hub.docker.com/_/postgres
+        - Docker -> Images -> postgres:latest -> Clique direito:Inspect -> Config.ExposedPorts
+        - Docker -> Containers -> postgres -> Clique direito:Edit -> Modify options -> Bind ports -> Bind ports:Browse... (Shift+Enter) -> + -> Host port:"5432" -> Container port:"5432" -> OK
+        - Docker -> Containers -> postgres -> Clique direito:Recreate
+        - Conectar no banco com dbeaver
 
-    Vídeo 2.2:
-      Título: Configurando o ambiente de desenvolvimento
+    Vídeo 2.5:
+      Título: Configurando volumes no docker
       Competências:
-        - Configurar o ambiente de desenvolvimento com Spring para utilizar serviços externos.
+        - Vamos: Entender volumes no docker
       Roteiro:
-        - Importar o projeto api-produto no intellij
-        - mvn clean install
-        - Executar application/src/main/java/Application.java
-        - Editar parâmetro spring.profiles.active=local,infra_local
-        - Analisar log de falha de conexão com banco de dados
-
-    Vídeo 2.3:
-      Título:
-      Competências:
-      Roteiro:
-        -
+        - https://hub.docker.com/_/postgres
+        # Criar registros
+        - |
+          CREATE TABLE tabela_teste (id bigint GENERATED ALWAYS AS IDENTITY NOT NULL, "name" varchar NOT NULL, CONSTRAINT tabela_teste_pk PRIMARY KEY (id));
+          INSERT INTO tabela_teste(name) VALUES('teste');
+          select * from tabela_teste;
+        - Validar que dados foram criados
+        # Testar persistência
+        - Docker -> Containers -> postgres -> Clique direito:Recreate
+        - select * from tabela_teste;
+        - Validar que dados foram perdidos
+        # Criar volume
+        - Docker -> Containers -> postgres -> Clique direito:Edit -> Modify options -> Bind mounts -> Bind mounts:Browse... (Shift+Enter) -> + -> Host path:"~/docker/postgres/data" -> Container path:"/var/lib/postgresql/data" -> OK
+        # Testar persistência
+        - Docker -> Containers -> postgres -> Clique direito:Recreate
+        - select * from tabela_teste;
+        - Validar que dados foram persistidos
 
   Aula 3:
     Título: Docker Compose para múltiplos containers
-    Objetivos:
-      - Apresentar o docker compose (portas, volumes, networks)
-      - Configurar e executar múltiplos containers utilizando Docker Compose
+    Pré-requisitos:
+      - Criar conta no localstack cloud (https://app.localstack.cloud)
 
     Vídeo 3.1:
       Título: O que é o Docker Compose?
       Competências:
-        - Compreender o conceito do Docker Compose e suas vantagens na orquestração de múltiplos containers.
+        - Vamos: Compreender o conceito do Docker Compose e suas vantagens na orquestração de múltiplos containers.
       Roteiro:
         - https://docs.docker.com/compose/
         - Explicar o que é o docker compose
@@ -168,19 +148,135 @@ Treinamento:
     Vídeo 3.2:
       Título: Criando um ambiente com Docker Compose
       Competências:
-        - Configurar e executar múltiplos containers utilizando Docker Compose.
+        - Vamos: Configurar e executar múltiplos containers utilizando Docker Compose.
+        - Vamos: Declarar o postgres no docker-compose.yml.
       Roteiro:
         - Apresentar docker-compose.yml da api-produto
-        - Explicar cada serviço (postgres, localstack, rabbitmq, redis)
-        - Executar docker compose up -d
-        - Validar containers rodando com docker ps
-        - Conectar no banco com dbeaver
+        - |
+          postgres:
+            image: postgres
+            environment:
+              POSTGRES_PASSWORD: postgres
+            ports:
+              - '5432:5432'
+          - Acessar o banco com dbeaver e validar que o container está rodando
 
     Vídeo 3.3:
-      Título: Aplicando Docker Compose no dia a dia
+      Título: Localstack com Docker Compose
       Competências:
-        - Integrar Docker Compose em projetos de desenvolvimento para facilitar o gerenciamento de ambientes.
+        - Vamos: Declarar o Localstack no docker-compose.yml.
       Roteiro:
-        - Visitar docker hub para buscar imagens
-        - Visitar documentação oficial do docker compose
-        - Dicas para aplicar no dia a dia em projetos pessoais e profissionais
+        - https://hub.docker.com/r/localstack/localstack
+        - |
+          localstack:
+            image: localstack/localstack
+            ports:
+              - '4566:4566'
+              - '4510-4559:4510-4559'
+        - Acessar o localstack cloud e validar que o container está rodando
+
+    Vídeo 3.4:
+      Título: RabbitMQ com Docker Compose
+      Competências:
+        - Vamos: Declarar o RabbitMQ no docker-compose.yml.
+      Roteiro:
+        - https://hub.docker.com/_/rabbitmq
+        - |
+          rabbitmq:
+            image: rabbitmq:3-management
+            environment:
+              RABBITMQ_DEFAULT_USER: rabbitmq
+              RABBITMQ_DEFAULT_PASS: rabbitmq
+            ports:
+              - '5672:5672'
+              - '9090:15672'
+        - http://localhost:9090/
+        - Acessar o RabbitMQ Management e validar que o container está rodando
+
+    Vídeo 3.5:
+      Título: Redis com Docker Compose
+      Competências:
+        - Vamos: Declarar o Redis no docker-compose.yml.
+      Roteiro:
+        - https://hub.docker.com/_/redis
+        - |
+          redis:
+            image: redis
+            ports:
+              - '6379:6379'
+
+    Vídeo 3.6:
+      Título: Zipkin com Docker Compose
+      Competências:
+        - Vamos: Declarar o Zipkin no docker-compose.yml.
+      Roteiro:
+        - https://hub.docker.com/r/openzipkin/zipkin
+        - |
+          zipkin:
+            image: openzipkin/zipkin
+            ports:
+             - '9411:9411'
+        - http://localhost:9411/
+        - Acessar o Zipkin e validar que o container está rodando
+
+  Aula 4:
+    Título: Dockerfile e testes finais
+    Pré-requisitos:
+      - Instalação Postman
+
+    Vídeo 4.1:
+      Título: Testando a aplicação com Docker Compose
+      Competências:
+        - Vamos: Executar a aplicação api-produto utilizando Docker Compose.
+      Roteiro:
+        - aba:Project -> docker-compose.yml -> Clique direito:Run 'docker-compose.yml'
+        - Application.java -> Clique direito:Run 'Application'
+        - Postman -> File -> Import... (Ctrl+O) -> Paste cURL, Raw text or URL ->
+        - |
+          curl --location 'http://localhost:8080/api/v1/produtos' \
+              --header 'Content-Type: application/json' \
+                --data '{
+              "nome": "Produto 1",
+              "categoria": "Categoria 1",
+              "status": "AVAILABLE",
+              "descricao": "Descrição do produto 1",
+              "valor": 1.99,
+              "fotos": [
+                {
+                  "fileName": "produto.png",
+                  "base64": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEnSURBVDiNldK/K0ZhFAfwj9ePDYPsb90yGJiY9I6krDIYTO/CH8CipBSyE7tClMUgq0FmiyIkZSWSheGey3V7L/nW6Xnu9znf7z3POQ+/oxpRiqYSPsFc7D9iXcHVXwYJZlFBO26who7gS40SbOIai2gJfgA7IeqOvK3ITTJxDU8YDuEUjmItGq2G0Uhoas0YxAWGMIZtbKAPS2FyjF104QRtOMB7E8bjL3t+Nm8Zt5iMau7xhtboS69ciRmuUC8YwWuYzWMhL6hojMzoNCKbwCFG84nFCop4ye3rmJGO96HsCmV4ljZtv3hQwSMm5ObaAHeYzn0noXnMiCrWpSPsySWO+55Sw7ziU65KG9Yp7XZ/8OcF/vKXar9K3MRZxI+n+x8kfwk/AT/iPUZGpHfDAAAAAElFTkSuQmCC"
+                }
+              ],
+              "tags": [
+                "tag 1"
+              ]
+              }'
+        - Send
+        - Validar logs da aplicação
+        - Validar Dbeaver
+        - Validar zipkin
+
+    Vídeo 4.2:
+      Título: Criar Dockerfile
+      Competências:
+        - Vamos: Criar um Dockerfile para a aplicação api-produto.
+      Roteiro:
+        - https://docs.docker.com/reference/dockerfile/
+        - criar arquivo Dockerfile
+        - |
+          FROM alpine/java:21-jdk
+          COPY application/target/api-produto.application-0.0.1-SNAPSHOT.jar api-produto.jar
+          ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev,infra_dev", "/api-produto.jar"]
+        - mvn clean install -DskipTests
+        - docker build -t api-produto .
+        - Descomentar api-produto em docker-compose.yml
+        - docker compose up
+
+    Vídeo 4.3:
+      Título: Testes finais
+      Competências:
+        - Vamos: Testar a aplicação api-produto rodando em container Docker.
+      Roteiro:
+        - Testar novamente a criação de produtos via Postman
+        - Validar logs da aplicação no docker compose
+        - Validar Dbeaver
