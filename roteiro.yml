@@ -270,7 +270,7 @@ Treinamento:
         - mvn clean install -DskipTests
         - docker build -t api-produto .
         - Descomentar api-produto em docker-compose.yml
-        - docker compose up
+        - (docker compose up) aba:Project -> docker-compose.yml -> Clique direito:Run 'docker-compose.yml'
 
     Vídeo 4.3:
       Título: Testes finais
