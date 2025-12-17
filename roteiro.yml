@@ -1,39 +1,43 @@
 Treinamento:
   Título: Docker para back-ends
-
   Pré-requisitos:
-    - Conhecimento básico de Spring.
+    - Conhecimento básico de java, Spring.
 
   Vídeo 0:
     Título: Boas-vindas
     Objetivos:
       - O curso é direcionado para quem está iniciando na carreira de back-end.
-      - Vamos: Ver o que são containers, como utilizar o docker na prática, e como aplicar no dia a dia.
+      - Ver o que são containers, como utilizar o docker na prática, e como aplicar no dia a dia.
     Roteiro:
-      - Sou Rodrigo de Sordi, desenvolvedor back-end Java e instrutor na Alura.
+      - Olá, eu sou Rodrigo de Sordi, desenvolvedor back-end Java e instrutor na Alura.
       - Tenho cabelo e cavanhaque loiros, tenho pele branca, uso óculos e estou vestindo uma camisa de cor 'xpto'.
-      - Tenho mais de 12 anos atuando como desenvolvedor de sistemas, principalmente no segmente financeiro.
-
+      - Tenho mais de 12 anos atuando como desenvolvedor de sistemas, principalmente no segmento financeiro.
+      - Nesse curso, vamos aprender sobre Docker e entender como containers podem facilitar o nosso dia a dia como desenvolvedores back-end.
+      - Vamos aprender como criar containers, como orquestrar múltiplos containers com Docker Compose, e como aplicar esses conhecimentos na prática utilizando um projeto real.
+      - Ao final do curso, você estará apto a utilizar Docker para criar ambientes de desenvolvimento isolados e consistentes, facilitando o desenvolvimento, testes e implantação de aplicações.
 
   Aula 1:
-    Título: Montando o ambiente de desenvolvimento
+    Título: Montando o ambiente de desenvolvimento local
     Pré-requisitos:
       - Instalar o intellij community
       - Clonar o projeto api-produto (https://github.com/rodsordi/api-produto)
 
     Vídeo 1.1:
-      Título: Apresentando o projeto api-produto
+      Título: Entendendo a arquitetura do projeto
       Competências:
-        - Vamos: Entender a estrutura do projeto api-produto e suas integrações com serviços externos.
+        - Entender as integrações com serviços externos.
       Roteiro:
         - Apresentar ./api-produto.png
         - Explicar processo de montagem do ambiente de desenvolvimento
+          - Precisamos das credenciais de serviços da infra
+          - Podemos conflitar com outras aplicações quando alteramos dados ou postamos mensagens na fila
+          - Antigamente precisava instalar tudo localmente e poderia haver descompasso na versão desses serviços
         - Explicar diferença entre ambientes local, dev, hml, test, prd
 
     Vídeo 1.2:
-      Título: Montando o ambiente de desenvolvimento
+      Título: Configurando o ambiente de desenvolvimento local
       Competências:
-        - Vamos: Configurar o ambiente de desenvolvimento
+        - Configurar o ambiente de desenvolvimento
       Roteiro:
         - Importar o projeto api-produto no intellij
         - mvn clean install
@@ -43,31 +47,32 @@ Treinamento:
         - Explicar que vamos resolver esse problema de isolamento do ambiente local com o docker
 
   Aula 2:
-    Título: Introdução ao Docker
+    Título: Introdução aos Containers
     Pré-requisitos:
       - Instalar o docker desktop
       - Instalar o dbeaver community
 
     Vídeo 2.1:
-      Título: O que são containers?
+      Título: O que são Containers?
       Competências:
-        - Vamos: compreender o conceito de containers e suas vantagens no desenvolvimento de software.
+        - Entender o conceito de containers
+        - Entender as vantagens de usar containers no desenvolvimento de sistemas.
       Roteiro:
         - https://azure.microsoft.com/pt-br/resources/cloud-computing-dictionary/what-is-a-container
         - Explicar container vs virtual machines
+        - Explicar que o container compartilha o Kernel do OS (Linux), tornando-o leve.
         - Vantagens dos containers:
-          - Leveza
-          - Portabilidade
-          - Isolamento
-          - Consistência entre ambientes
-          - Escalabilidade
-        - Apresentar conteúdo da alura mais específico sobre docker (https://cursos.alura.com.br/course/devops-construindo-gerindo-containers-docker)
+            - Leveza
+            - Portabilidade
+            - Isolamento
+            - Consistência entre ambientes
+            - Escalabilidade
+        - Apresentar que existe um conteúdo da alura mais detalhado sobre containers (https://cursos.alura.com.br/course/devops-construindo-gerindo-containers-docker)
 
     Vídeos 2.2:
-      Título: Ações básicas do Docker
+      Título: Funcionalidades básicas do Docker
       Competências:
-        - Vamos: conhecer o mínimo para começar a utilizar o docker.
-        - Vamos: executar comandos básicos do Docker para gerenciar imagens, containers.
+        - Executar comandos básicos do Docker para gerenciar imagens, containers.
       Roteiro:
         - Menu -> File -> Setting -> Plugins -> Marketplace -> Docker -> Install
         - Menu -> View -> Tool Windows -> Services (alt+8)
@@ -79,8 +84,8 @@ Treinamento:
     Vídeo 2.3:
       Título: Trabalhando com o Postgres no Docker
       Competências:
-        - Vamos: Aprender à buscar imagens no Docker Hub
-        - Vamos: Entender portas, variáveis de ambiente e volumes no Docker
+        - Aprender à buscar imagens no Docker Hub
+        - Entender portas, variáveis de ambiente e volumes no Docker
       Roteiro:
         # Container Postgres
         - https://hub.docker.com/_/postgres
@@ -96,7 +101,7 @@ Treinamento:
     Vídeo 2.4:
       Título: Configurando portas no docker
       Competências:
-        - Vamos: Entender como funcionam as portas no docker
+        - Entender como funcionam as portas no docker
       Roteiro:
         - https://hub.docker.com/_/postgres
         - Docker -> Images -> postgres:latest -> Clique direito:Inspect -> Config.ExposedPorts
@@ -107,7 +112,7 @@ Treinamento:
     Vídeo 2.5:
       Título: Configurando volumes no docker
       Competências:
-        - Vamos: Entender volumes no docker
+        - Entender volumes no docker
       Roteiro:
         - https://hub.docker.com/_/postgres
         # Criar registros
@@ -135,21 +140,21 @@ Treinamento:
     Vídeo 3.1:
       Título: O que é o Docker Compose?
       Competências:
-        - Vamos: Compreender o conceito do Docker Compose e suas vantagens na orquestração de múltiplos containers.
+        - Compreender o conceito do Docker Compose e suas vantagens na orquestração de múltiplos containers.
       Roteiro:
         - https://docs.docker.com/compose/
         - Explicar o que é o docker compose
         - Vantagens do docker compose:
-          - Orquestração simplificada
-          - Configuração declarativa
-          - Isolamento de ambientes
-          - Escalabilidade facilitada
+            - Orquestração simplificada
+            - Configuração declarativa
+            - Isolamento de ambientes
+            - Escalabilidade facilitada
 
     Vídeo 3.2:
       Título: Criando um ambiente com Docker Compose
       Competências:
-        - Vamos: Configurar e executar múltiplos containers utilizando Docker Compose.
-        - Vamos: Declarar o postgres no docker-compose.yml.
+        - Configurar e executar múltiplos containers utilizando Docker Compose.
+        - Declarar o postgres no docker-compose.yml.
       Roteiro:
         - Apresentar docker-compose.yml da api-produto
         - |
@@ -164,7 +169,7 @@ Treinamento:
     Vídeo 3.3:
       Título: Localstack com Docker Compose
       Competências:
-        - Vamos: Declarar o Localstack no docker-compose.yml.
+        - Declarar o Localstack no docker-compose.yml.
       Roteiro:
         - https://hub.docker.com/r/localstack/localstack
         - |
@@ -178,7 +183,7 @@ Treinamento:
     Vídeo 3.4:
       Título: RabbitMQ com Docker Compose
       Competências:
-        - Vamos: Declarar o RabbitMQ no docker-compose.yml.
+        - Declarar o RabbitMQ no docker-compose.yml.
       Roteiro:
         - https://hub.docker.com/_/rabbitmq
         - |
@@ -196,7 +201,7 @@ Treinamento:
     Vídeo 3.5:
       Título: Redis com Docker Compose
       Competências:
-        - Vamos: Declarar o Redis no docker-compose.yml.
+        - Declarar o Redis no docker-compose.yml.
       Roteiro:
         - https://hub.docker.com/_/redis
         - |
@@ -208,7 +213,7 @@ Treinamento:
     Vídeo 3.6:
       Título: Zipkin com Docker Compose
       Competências:
-        - Vamos: Declarar o Zipkin no docker-compose.yml.
+        - Declarar o Zipkin no docker-compose.yml.
       Roteiro:
         - https://hub.docker.com/r/openzipkin/zipkin
         - |
@@ -227,7 +232,7 @@ Treinamento:
     Vídeo 4.1:
       Título: Testando a aplicação com Docker Compose
       Competências:
-        - Vamos: Executar a aplicação api-produto utilizando Docker Compose.
+        - Executar a aplicação api-produto utilizando Docker Compose.
       Roteiro:
         - aba:Project -> docker-compose.yml -> Clique direito:Run 'docker-compose.yml'
         - Application.java -> Clique direito:Run 'Application'
@@ -259,7 +264,7 @@ Treinamento:
     Vídeo 4.2:
       Título: Criar Dockerfile
       Competências:
-        - Vamos: Criar um Dockerfile para a aplicação api-produto.
+        - Criar um Dockerfile para a aplicação api-produto.
       Roteiro:
         - https://docs.docker.com/reference/dockerfile/
         - criar arquivo Dockerfile
@@ -275,7 +280,7 @@ Treinamento:
     Vídeo 4.3:
       Título: Testes finais
       Competências:
-        - Vamos: Testar a aplicação api-produto rodando em container Docker.
+        - Testar a aplicação api-produto rodando em container Docker.
       Roteiro:
         - Testar novamente a criação de produtos via Postman
         - Validar logs da aplicação no docker compose
