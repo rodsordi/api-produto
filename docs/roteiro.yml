@@ -1,5 +1,5 @@
 Treinamento:
-  Título: Docker para back-ends
+  Título: Docker para desenvolvedores Java
   Pré-requisitos:
     - Conhecimento básico de java, Spring.
 
@@ -9,12 +9,16 @@ Treinamento:
       - O curso é direcionado para quem está iniciando na carreira de back-end.
       - Ver o que são containers, como utilizar o docker na prática, e como aplicar no dia a dia.
     Roteiro:
-      - Olá, eu sou Rodrigo de Sordi, desenvolvedor back-end Java e instrutor na Alura.
-      - Tenho cabelo e cavanhaque loiros, tenho pele branca, uso óculos e estou vestindo uma camisa de cor 'xpto'.
-      - Tenho mais de 12 anos atuando como desenvolvedor de sistemas, principalmente no segmento financeiro.
-      - Nesse curso, vamos aprender sobre Docker e entender como containers podem facilitar o nosso dia a dia como desenvolvedores back-end.
-      - Vamos aprender como criar containers, como orquestrar múltiplos containers com Docker Compose, e como aplicar esses conhecimentos na prática utilizando um projeto real.
-      - Ao final do curso, você estará apto a utilizar Docker para criar ambientes de desenvolvimento isolados e consistentes, facilitando o desenvolvimento, testes e implantação de aplicações.
+      - Olá, bem vindo ao curso Docker para desenvolvedores Java
+      - Eu sou Rodrigo de Sordi, tenho cabelo e cavanhaque loiros, tenho pele branca, uso óculos e estou vestindo uma camisa de cor 'xpto', e atrás de mim está o estúdio da Alura.
+      - Além de instrutor na Alura, sou desenvolvedor back-end Java e tenho mais de 12 anos atuando como desenvolvimento de sistemas, principalmente no setor financeiro.
+      - Este curso é para desenvolvedores iniciantes ou avançados que desejam otimizar sua rotina de desenvolvimento.
+      - Nesse curso, vamos aprender sobre Docker e entender como containers podem ser uma ferramenta para facilitar o nosso dia a dia.
+      - Também vamos aprender como criar containers, como orquestrar múltiplos containers com Docker e construir uma infra-estrutura local para simular o uma ambiente mais próximo do ambiente real.
+      - Ao final do curso, você estará apto a utilizar Docker para criar ambientes de desenvolvimento isolados e consistentes, facilitando o desenvolvimento de novas features e resolução de incidentes de maneira mais ágil.
+      - Vamos fornecer um projeto pronto para o nosso ponto de partida no início do curso.
+      - Além dos vídeos, temos várias atividades de apoio, conteúdos extras e também o apoio do fórum e da comunidade em caso de dúvidas!
+      - Bora estudar?
 
   Aula 1:
     Título: Montando o ambiente de desenvolvimento local
@@ -44,6 +48,15 @@ Treinamento:
         - Executar application/src/main/java/Application.java
         - Editar parâmetro spring.profiles.active=local,infra_local
         - Analisar log de falha de conexão com banco de dados
+
+    Vídeo 1.3:
+      Título: Entendendo os diferentes tipos de ambiente
+      Competências:
+        - Entender os diferentes tipos de ambiente
+      Roteiro:
+        - Explicar o ambiente local
+        - Explicar o ambiente dev
+        - Explicar o ambiente prd
         - Explicar que vamos resolver esse problema de isolamento do ambiente local com o docker
 
   Aula 2:
@@ -94,16 +107,16 @@ Treinamento:
         - Analisar log de erro do password
         - Docker -> Containers -> postgres -> Clique direito:Edit -> Modify options -> Environment variables -> Environment variables:Browse... (Shift+Enter) -> + -> Name:"POSTGRES_PASSWORD" -> Value:"postgres" -> OK
         - Docker -> Containers -> postgres -> Clique direito:Recreate
-        # Dbeaver
-        - abrir, configurar conexão e navegar no banco de dados
-        - mostrar erro de conexão
 
     Vídeo 2.4:
       Título: Configurando portas no docker
       Competências:
         - Entender como funcionam as portas no docker
       Roteiro:
-        - https://hub.docker.com/_/postgres
+        # Dbeaver
+        - abrir, configurar conexão e navegar no banco de dados
+        - mostrar erro de conexão
+        # Docker
         - Docker -> Images -> postgres:latest -> Clique direito:Inspect -> Config.ExposedPorts
         - Docker -> Containers -> postgres -> Clique direito:Edit -> Modify options -> Bind ports -> Bind ports:Browse... (Shift+Enter) -> + -> Host port:"5432" -> Container port:"5432" -> OK
         - Docker -> Containers -> postgres -> Clique direito:Recreate
@@ -132,6 +145,9 @@ Treinamento:
         - select * from tabela_teste;
         - Validar que dados foram persistidos
 
+    Vídeo 2.6:
+      Título: Conclusão volumes
+
   Aula 3:
     Título: Docker Compose para múltiplos containers
     Pré-requisitos:
@@ -159,7 +175,7 @@ Treinamento:
         - Apresentar docker-compose.yml da api-produto
         - |
           postgres:
-            image: postgres
+            image: postgres:14.20-alpine3.23
             environment:
               POSTGRES_PASSWORD: postgres
             ports:
@@ -171,6 +187,7 @@ Treinamento:
       Competências:
         - Declarar o Localstack no docker-compose.yml.
       Roteiro:
+        - https://app.localstack.cloud/
         - https://hub.docker.com/r/localstack/localstack
         - |
           localstack:
@@ -262,7 +279,7 @@ Treinamento:
         - Validar zipkin
 
     Vídeo 4.2:
-      Título: Criar Dockerfile
+      Título: Dockerfile
       Competências:
         - Criar um Dockerfile para a aplicação api-produto.
       Roteiro:
@@ -274,14 +291,33 @@ Treinamento:
           ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev,infra_dev", "/api-produto.jar"]
         - mvn clean install -DskipTests
         - docker build -t api-produto .
-        - Descomentar api-produto em docker-compose.yml
-        - (docker compose up) aba:Project -> docker-compose.yml -> Clique direito:Run 'docker-compose.yml'
 
     Vídeo 4.3:
-      Título: Testes finais
-      Competências:
-        - Testar a aplicação api-produto rodando em container Docker.
+      Título: api-produto no docker compose
+        - Configurar api-produto no docker compose
       Roteiro:
+        - Descomentar api-produto em docker-compose.yml
+        - (docker compose up) aba:Project -> docker-compose.yml -> Clique direito:Run 'docker-compose.yml'
         - Testar novamente a criação de produtos via Postman
         - Validar logs da aplicação no docker compose
         - Validar Dbeaver
+
+    Vídeo 4.4:
+      Título: Finalização do curso
+      Roteiro:
+        - Parabéns por ter chegado ao final deste curso
+
+        - Neste curso vimos
+          - Como montar o ambiente de desenvolvimente e quais são os desafios que enfrentamos
+          - Aprendemos o que são containers, os comandos básicos e comos podemos usar ao nosso favor
+          - Também vimos como orquestrar vários containers ao mesmo tempo de forma declarativa
+          - E por fim vimos como criar um ambiente isolado, muito próximo ao ambiente real de prd
+
+        - Com esse curso você vai conseguir
+          - otimizar o seu tempo de montagem de ambiente
+          - compartilhar configurações
+          - começar a desenvolver e resolver problemas de maneira mais rápida
+
+        - Não se esqueça de fazer sua avaliação, qualquer dúvida temos o forúm e a comunidade no discord
+
+        - Nos vemos numa próxima!
